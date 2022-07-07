@@ -10,62 +10,35 @@
   visibility: visible;
 }
 
-@font-face {
-  font-family: 'teleneo-thin';
-  src: url('#{$baseUrl}/assets/fonts/TeleNeoWeb-Thin.woff2') format('truetype');
-}
-
 
 @font-face {
-  font-family: 'teleneo-regular-default';
-  src: url('#{$baseUrl}/assets/fonts/TeleNeoWeb-Regular.woff2') format('truetype');
+  font-family: 'inter';
+  src: url('#{$baseUrl}/assets/fonts/inter/Inter-Regular.woff2') format('truetype');
 }
 
 @font-face {
-  font-family: 'teleneo-medium-default';
-  src: url('#{$baseUrl}/assets/fonts/TeleNeoWeb-Medium.woff2') format('truetype');
-}
-
-
-
-
-
-@font-face {
-  font-family: 'teleneo';
-  src: url('#{$baseUrl}/assets/fonts/teleneo-regular-webfont.woff2') format('truetype');
+  font-family: 'inter-semi-bold';
+  src: url('#{$baseUrl}/assets/fonts/inter/Inter-SemiBold.woff2') format('truetype');
 }
 
 @font-face {
-  font-family: 'teleneo-bold';
-  src: url('#{$baseUrl}/assets/fonts/teleneo-bold-webfont.woff2') format('truetype');
+  font-family: 'inter-bold';
+  src: url('#{$baseUrl}/assets/fonts/inter/Inter-Bold.woff2') format('truetype');
 }
 
 @font-face {
-  font-family: 'teleneo-medium';
-  src: url('#{$baseUrl}/assets/fonts/teleneo-medium-webfont.woff2') format('truetype');
-}
-
-@font-face {
-  font-family: 'teleneo-xtra-bold';
-  src: url('#{$baseUrl}/assets/fonts/teleneo-extrabold-webfont.woff2') format('truetype');
+  font-family: 'inter-xtra-bold';
+  src: url('#{$baseUrl}/assets/fonts/inter/Inter-Black.woff2') format('truetype');
 }
 
 
-$sans:       "teleneo-medium";
-$sans-light: "teleneo-thin";
-$sans-bold:  "teleneo-bold";
-$serif:      "monospace";
-$display:    "teleneo-xtra-bold";
+$sans:            "inter";
+$sans-bold:       "inter-bold";
+$sans-semi-bold:  "inter-semi-bold";
 
+$monospace:       monospace;
+$display:         "inter-xtra-bold";
 
-@mixin light {
-  font-family: $sans-light, sans-serif;
-  font-weight: normal;
-}
-@mixin light-italic {
-  font-family: $sans, sans-serif;
-  font-style: italic;
-}
 
 @mixin regular {
   font-family: $sans, sans-serif;
@@ -76,7 +49,7 @@ $display:    "teleneo-xtra-bold";
 }
 
 @mixin medium {
-  font-family: $sans-bold, sans-serif;
+  font-family: $sans-semi-bold, sans-serif;
 }
 
 @mixin bold {
@@ -87,10 +60,7 @@ $display:    "teleneo-xtra-bold";
   font-family: $sans-bold, sans-serif;
   font-style: italic;
 }
-//@mixin black {
-//  font-family: $serif, sans-serif;
-//  font-weight: 800;
-//}
+
 @mixin headline {
   font-family: $display, sans-serif;
   font-weight: normal;
@@ -100,6 +70,12 @@ $display:    "teleneo-xtra-bold";
   font-family: "Arial", sans-serif;
   font-weight: normal;
 }
+
+@mixin monospace {
+  font-family: $monospace;
+  font-weight: normal;
+}
+
 
 body,
 html {
@@ -125,7 +101,7 @@ html {
 }
 
 .post-content h2 {
-  @include bold;
+  @include medium;
   margin: 2rem 0 1rem 0;
   &:first-of-type {
     margin-top: 0;
@@ -136,20 +112,18 @@ html {
 .post-content h3 {
   font-size: 1.25rem;
   margin: 0rem 0 1rem 0;
-  @include headline;
+  @include bold;
 }
 
 .post-content h3 {
   margin: 1rem 0 1rem 0;
 }
 
-
-
 .h-delta {
   font-size: 1.25rem;
   padding: 0;
   margin: 0 0 1rem 0;
-  @include medium;
+  @include bold;
 }
 
 a {
@@ -186,7 +160,7 @@ strong {
 }
 
 label {
-  @include headline;
+  @include bold;
 
 }
 
@@ -255,29 +229,4 @@ ol {
       margin-bottom: inherit;
     }
   }
-}
-
-
-.teleneo-rescaled {
-  font-family: teleneo;
-  font-weight: normal;
-}
-
-.teleneo {
-  font-family: teleneo-regular-default;
-  font-weight: normal;
-}
-
-.teleneo-medium {
-  font-family: teleneo-medium-default;
-  font-weight: normal;
-}
-
-.helvetica {
-  font-family: Helvetica, Arial, sans-serif;
-
-}
-.helvetica-14 {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 14px;
 }

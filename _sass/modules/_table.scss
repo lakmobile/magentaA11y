@@ -15,7 +15,7 @@ table {
   thead {
     border-bottom: 3px solid #000;
     th {
-      @include headline;
+      @include medium;
       margin: 0;
       padding: .6rem 1rem .4rem 1px;
       vertical-align: top;
@@ -28,7 +28,7 @@ table {
 
       &[scope='col'] {
         border-top: none;
-        @include headline;
+        @include medium;
       }
     }
   }
@@ -48,7 +48,7 @@ table {
         background-color: #fff;
       }
       &[scope='row'] {
-        @include headline;
+        @include medium;
       }
     }
 
