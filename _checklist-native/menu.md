@@ -1,6 +1,6 @@
 ---
 layout: entry
-title:  "Menu"
+title:  "Collapsible menu"
 categories: controls
 
 keyboard:

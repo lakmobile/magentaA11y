@@ -49,8 +49,10 @@ web-categories-order:
 - form
 - footer
 native-categories-order:
+- interface
 - controls
 - notifications
+- content
 video-demos:
 - title: iOS Voiceover Safari
   directory: ios/
