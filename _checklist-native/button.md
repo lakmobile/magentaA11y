@@ -54,12 +54,16 @@ settings:
     -   To hide labels from VoiceOver announcements, uncheck the Accessibility Enabled checkbox in the Identity Inspector
     -   If hiding visible label from screen reader, use `accessibilityLabel` on control
     -   SWIFTUI: Controls can take a Text view (visible label) as part of their view builder, connecting the visible label or meaning to the control.
--   **Android Tips**  
+-   **Android Tips: Layouts**  
     -   `android:text` XML attribute
     -   Optional: use `contentDescription` for a more descriptive name, depending on type of view and for elements (icons) without a visible label
     -   `contentDescription` overrides `android:text`          
     -   Use `labelFor` attribute to associate the visible label with the control  
-        
+-   **Android Tips: Jetpack Compose**
+    -   Compose uses semantics properties to pass information to accessibility services.
+    -   The built-in Button composable will fill the semantics properties with information inferred from the composable by default. Modifiers are available to customize.
+    -   Optional: use `contentDescription` for a more descriptive name to override the default visible label of the button text.
+    -   Example specification of contentDescription in compose: `modifier = Modifier.semantics { contentDescription = “Submit action” }`
 
 ### Role
 -   When not using native controls (custom controls), roles will need to be manually coded.
