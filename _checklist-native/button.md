@@ -35,7 +35,7 @@ settings:
 
 ## Developer notes
 -   A button is a control that executes an action or navigates within the app.  Note: Links only navigate the user to a browser. 
--   Even if the control visibly looks like a link, code as a button to cue the screen reader the action will keep them within the app
+-   Even if the control visibly looks like a link, code as a button to cue the screen reader the action will keep them within the app.
 -   When naming a button, do not add "button" to the programmatic name (label).  "Button" will be announced as the role.  Avoid duplication: "Submit button, button"
 -   use a native control when at all possible vs a custom element, as it will automatically and correctly announce the role without additional development effort
 -   Name, Role, State must be announced when focus is on the control. Announcing the label before the input field does not meet this requirement.
