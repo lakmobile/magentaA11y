@@ -54,16 +54,17 @@ settings:
     -   To hide labels from VoiceOver announcements, uncheck the Accessibility Enabled checkbox in the Identity Inspector
     -   If hiding visible label from screen reader, use `accessibilityLabel` on control
     -   SWIFTUI: Controls can take a Text view (visible label) as part of their view builder, connecting the visible label or meaning to the control.
--   **Android Tips: Layouts**  
+-   **Android Tips: Views**  
     -   `android:text` XML attribute
     -   Optional: use `contentDescription` for a more descriptive name, depending on type of view and for elements (icons) without a visible label
     -   `contentDescription` overrides `android:text`          
     -   Use `labelFor` attribute to associate the visible label with the control  
--   **Android Tips: Jetpack Compose**
+-   **Android Tips: Compose**
     -   Compose uses semantics properties to pass information to accessibility services.
-    -   The built-in Button composable will fill the semantics properties with information inferred from the composable by default. Modifiers are available to customize.
+    -   The built-in Button composable will fill the semantics properties with information inferred from the composable by default.
     -   Optional: use `contentDescription` for a more descriptive name to override the default visible label of the button text.
-    -   Example specification of contentDescription in compose: `modifier = Modifier.semantics { contentDescription = “Submit action” }`
+    -   Example specification of contentDescription in compose: `modifier = Modifier.semantics { contentDescription = "" }`
+    -   Exclusive list of custom accessibility actions can be defined using customActions. `modifier = Modifier.semantics { customActions = listOf(CustomAccessibilityAction(label = "", action = { true }))},`
 
 ### Role
 -   When not using native controls (custom controls), roles will need to be manually coded.
@@ -89,11 +90,13 @@ settings:
     -   `shouldGroupAccessibilityChildren` attribute indicates whether VoiceOver must group its children views. This allows making unique vocalizations or define a particular reading order for a part of the page
     -  SWIFTUI: `.accessibilityElement(children)` with argument of `.combine` 
     -  SWIFTUI: `.ignore` property, then add accessibility attributes and traits to stack view
--   **Android**
+-   **Android Tips: Views**
     -  `ViewGroup`
     -  Set the container object's `android:screenReaderFocusable` attribute to true, and each inner object's `android:focusable` attribute to false. In doing so, accessibility services can present the inner elements' `contentDescription` or names, one after the other, in a single announcement.
     -  JETPACK COMPOSE: Composables can be merged together using the `semantics` modifier with its `mergeDescendants` property
-
+- **Android Tips: Compose**
+    - `Modifier.semantics(mergeDescendants = true) {}` is equivalent to `importantForAccessibility` when compared to android views.
+    - In combination with `FocusRequester` usage individual components can be grouped. More on FocusRequester in the focus section below.
 
 ### State 
 
@@ -102,9 +105,14 @@ settings:
   -   Disabled: `UIAccessibilityTraitNotEnabled`.  Announcement: "dimmed"
   -   AccessibilityTrait: `selected`
   -   SWIFTUI: `.accessibility(addTraits: [.isSelected])`
-- **Android**
+- **Android Tips: Views**
   - Active: `android:enabled=true`
   - Disabled: `android:enabled=false`. Announcement: disabled
+- **Android Tips: Compose**
+    - Active: default state is active.enabled.
+    - Disabled: `modifier = Modifier.semantics { disabled() }`. Announcement: disabled
+    - Use `modifier = Modifier.semantics { stateDescription = "" }` to have a customized state announcement.
+
 
 ### Focus
 -   Only manage focus when needed. Primarily, let the device manage default focus
@@ -123,7 +131,7 @@ settings:
     -   To move screen reader focus to newly revealed content: `UIAccessibilityLayoutChangedNotification`
     -   To NOT move focus, but dynamically announce new content: `UIAccessibilityAnnouncementNotification`
     -   `UIAccessibilityContainer` protocol: Have a table of elements that defines the reading order of the elements.  
-- **Android**
+- **Android Tips: Views**
     -   `importantForAccessibility` makes the element visible to the Accessibility API
     -   `android:focusable`
     -   `android=clickable`
@@ -137,3 +145,21 @@ settings:
     -   To NOT move focus, but dynamically announce new content: `accessibilityLiveRegion`(set to polite or assertive)
     -   To hide controls: `importantForAccessibility=false`
     -   For a `ViewGroup`, set `screenReaderFocusable=true` and each inner object’s attribute to keyboard focus (`focusable=false`)
+- **Android Tips: Compose**
+    - `Modifier.focusTarget()` makes the component focusable
+    - `Modifier.focusOrder()` needs to be used in combination with FocusRequesters to define focus order.
+    - Example: to customize the focus events behaviour
+    - step-1: define the focus requester prior. `val (first, second) = FocusRequester.createRefs()`
+    - step-2: update the modifier to set the order: `modifier = Modifier.focusOrder(first) { this.down = second }`
+    - focus order takes values like: down, left, right, up, previous, next, start, end
+    - `FocusRequester` allows to request focus to individual components with in a group of merged descendant views, extending the above example use `second.requestFocus()` to request focus.
+    - `Modifier.onFocusEvent()`, `Modifier.onFocusChanged()` can be used to observe the changes to focus state
+
+### Custom Accessibility Action
+- **Android Tips: Views**  
+  -     Step 1. Create an accessibility service
+  -     Step 2: Add the FLAG_REQUEST_ACCESSIBILITY_BUTTON flag in an AccessibilityServiceInfo object's android:accessibilityFlags attribute. 
+  -     Step 3: To have a custom service register for the button's custom action callbacks, use registerAccessibilityButtonCallback(). 
+
+- **Android Tips: Compose**
+    -   Exclusive list of custom accessibility actions can be defined in simple way in compose using customActions. `modifier = Modifier.semantics { customActions = listOf(CustomAccessibilityAction(label = "", action = { true }))}`
