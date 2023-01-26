@@ -157,9 +157,9 @@ settings:
 
 ### Custom Accessibility Action
 - **Android Tips: Views**  
-  -     Step 1. Create an accessibility service
-  -     Step 2: Add the FLAG_REQUEST_ACCESSIBILITY_BUTTON flag in an AccessibilityServiceInfo object's android:accessibilityFlags attribute. 
-  -     Step 3: To have a custom service register for the button's custom action callbacks, use registerAccessibilityButtonCallback(). 
+  - step 1. Create an accessibility service
+  - step 2: Add the `FLAG_REQUEST_ACCESSIBILITY_BUTTON` flag in an AccessibilityServiceInfo object's `android:accessibilityFlags` attribute. 
+  - step 3: To have a custom service register for the button's custom action callbacks, use `registerAccessibilityButtonCallback()`. 
 
 - **Android Tips: Compose**
     -   Exclusive list of custom accessibility actions can be defined in simple way in compose using customActions. `modifier = Modifier.semantics { customActions = listOf(CustomAccessibilityAction(label = "", action = { true }))}`
